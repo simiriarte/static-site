@@ -93,12 +93,19 @@ async function build() {
   // Read templates
   const pageTemplate = await readTemplate('page');
   
-  // Process content pages
+  // Copy direct index.html if it exists
+  const directIndexPath = path.join(config.srcDir, 'index.html');
+  if (await fs.pathExists(directIndexPath)) {
+    await fs.copy(directIndexPath, path.join(config.outputDir, 'index.html'));
+    console.log('Copied: index.html');
+  }
+  
+  // Process content pages (excluding index.md since we now use direct index.html)
   const contentDir = path.join(config.srcDir, config.contentDir);
   if (await fs.pathExists(contentDir)) {
     const contentFiles = await fs.readdir(contentDir);
     for (const file of contentFiles) {
-      if (path.extname(file) === '.md') {
+      if (path.extname(file) === '.md' && file !== 'index.md') {
         const name = path.basename(file, '.md');
         const markdownPath = path.join(contentDir, file);
         const outputPath = path.join(config.outputDir, `${name}.html`);
