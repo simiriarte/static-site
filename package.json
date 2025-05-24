@@ -1,0 +1,22 @@
+{
+  "name": "simple-static-site",
+  "version": "1.0.0",
+  "description": "A simple static site generator with markdown support",
+  "main": "build.js",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "node build.js && node server.js",
+    "serve": "node server.js"
+  },
+  "dependencies": {
+    "marked": "^5.1.1",
+    "front-matter": "^4.0.2",
+    "fs-extra": "^11.1.1"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "keywords": ["static-site", "markdown", "blog"],
+  "author": "",
+  "license": "MIT"
+} 
